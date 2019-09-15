@@ -38,3 +38,13 @@
   height: calc(100vh - 120px);
   overflow: auto;
 }
+
+.Error__text {
+  color: red;
+  display: block;  
+  text-align: center; 
+}
+
+label {
+  color: white;
+}
