@@ -1,41 +1,57 @@
 import React, { Component } from 'react'
 import NotePageNav from '../NotePageNav/NotePageNav';
 import PropTypes from 'prop-types';
-import Dropdown from '../Dropdown';
 
 export default class AddNote extends Component {
-    
+
     static propTypes = {
         addNote: PropTypes.func.isRequired
     };
 
     constructor(props) {
+        const ipsum = require('gen-ipsum');
+
         super(props);
         this.state = {
             errors: "",
-            value: ``
+            noteName: ``,
+            noteContent: "",
+            selectedFolder: this.props.folderId,
+            ipsum: ipsum.generate({words: 50})
         };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleNoteChange = this.handleNoteChange.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({ value: event.target.value });
+    handleNameChange(event) {
+        this.setState({ noteName: event.target.value });
+    }
+
+    handleNoteChange(event) {
+        this.setState({ noteContent: event.target.value });
+    }
+
+    handleSelect(event) {
+        this.setState({selectedFolder: event.target.value});
     }
 
     handleSubmit = (event) => {
 
         event.preventDefault();
 
-        const ipsum = require('gen-ipsum'); // run "npm install gen-ipsum" to install React component
         const url = 'http://localhost:9090/notes';
-        const data = { name: this.state.value, modified: new Date(), content: ipsum.generate({words: 30}), }
-        if(this.props.folderId ){
+        const data = { name: this.state.noteName, modified: new Date(), content: this.state.noteContent, folderId: this.props.folderId}
+        if (!data.content) {
+            data.content = this.state.ipsum
+        }
+        if(this.props.folderId){
             data.folderId = this.props.folderId
         }
         if (!data.name){
-            this.setState({ errors: "field cannot be blank" })
+            this.setState({ errors: "Note name field cannot be blank" })
         }
         else {
         fetch(url, {
@@ -54,18 +70,33 @@ export default class AddNote extends Component {
         
         }
     }
+    
     render() {
+        const folders = this.props.folders.map((folder, index) => { 
+            return  <option key={index} value={folder.id}>{folder.name}</option>
+        })
+
         return (
             <div>
                 <NotePageNav {...this.props} />
                 <form onSubmit = {this.handleSubmit}>
-                    <label>Enter Note Name:
-                    <input type="text" name="newNote" value={this.state.value} onChange={this.handleChange} />
+                    <div>
+                    <label>Enter note name:
+                        <input type="text" name="newNote" value={this.state.noteName} onChange={this.handleNameChange} />
                     </label>
+                    </div>
+                    <div>
+                    <label>Enter note:
+                        <textarea className="note__text" type="text" name="noteContent" placeholder={this.state.ipsum} value={this.state.noteContent} onChange={this.handleNoteChange} />
+                    </label>
+                    </div>
+                    <select onChange={this.handleSelect} value={this.state.selectedFolder}>
+                        {folders}
+                    </select>
                     <input type="submit" value="Submit" />
                     {this.state.errors && <span className="Error__text">{this.state.errors}</span>}
                 </form>
-                <Dropdown folders={this.props}></Dropdown>
+                
             </div>
         )
     }

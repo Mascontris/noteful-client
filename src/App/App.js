@@ -66,8 +66,8 @@ class App extends Component {
     }
 
     renderMainRoutes() {
-        // eslint-disable-next-line
-        const {notes, folders} = this.state;
+
+        const {notes } = this.state;
         return (
             <>
                 {['/', '/folder/:folderId'].map(path => (
@@ -101,6 +101,10 @@ class App extends Component {
                 <Route path="/add-note" 
                     render={routeProps => {
                     return <AddNote {...routeProps} addNote={this.addNote} folderId={routeProps.match.params.folderId} folders={this.state.folders}/>}} />
+                
+                <Route path="/folder/:folderId/add-note" 
+                    render={routeProps => {
+                    return <AddNote {...routeProps} addNote={this.addNote} folderId={routeProps.match.params.folderId} folders={this.state.folders}/>}} />    
             </>
         );
     }
