@@ -13,19 +13,21 @@ import ErrorBoundary from '../Error'
 
 class App extends Component {
     state = {
-        notes: [],
-        folders: []
+        folders: [],
+        notes: []
     };
 
     componentDidMount() {
         // fake date loading from API call
         //setTimeout(() => this.setState(dummyStore), 600);
-        fetch('http://localhost:9090/folders').then(res => res.json())
+        fetch('https://immense-caverns-47913.herokuapp.com/folders').then(res => res.json())
         .then(response => this.setState({folders: response}))
         .catch(error => console.error('Error:', error))
-        fetch('http://localhost:9090/notes').then(res => res.json())
+        fetch('https://immense-caverns-47913.herokuapp.com/notes').then(res => res.json())
         .then(response => this.setState({notes: response}))
         .catch(error => console.error('Error:', error))
+   
+        setTimeout(() => console.log(this.state), 600)
     }
 
     addFolder = (folder) => {this.setState({folders: [...this.state.folders, folder]})}

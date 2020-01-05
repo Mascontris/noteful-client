@@ -10,10 +10,10 @@ export default function NoteListMain(props) {
     <section className='NoteListMain'>
       <ul>
         {props.notes.map(note =>
-          <li key={note.id}>
+          <li key={note.noteId}>
             <Note
-              id={note.id}
-              name={note.name}
+              id={note.noteId}
+              name={note.noteName}
               modified={note.modified}
             />
           </li>
@@ -22,7 +22,7 @@ export default function NoteListMain(props) {
       <div className='NoteListMain__button-container'>
         <CircleButton
           tag={Link}
-          to={`/folder/${props.match.params.folderId}/add-note`}
+          to={`/folders/${props.match.params.folderId}/add-note`}
           type='button'
           className='NoteListMain__add-note-button'
         >

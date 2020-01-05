@@ -10,15 +10,15 @@ export default function NoteListNav(props) {
     <div className='NoteListNav'>
       <ul className='NoteListNav__list'>
         {props.folders.map(folder =>
-          <li key={folder.id}>
+          <li key={folder.folderId}>
             <NavLink
               className='NoteListNav__folder-link'
-              to={`/folder/${folder.id}`}
+              to={`/folders/${folder.folderId}`}
             >
               <span className='NoteListNav__num-notes'>
-                {countNotesForFolder(props.notes, folder.id)}
+                {countNotesForFolder(props.notes, folder.folderId)}
               </span>
-              {folder.name}
+              {folder.folderName}
             </NavLink>
           </li>
         )}

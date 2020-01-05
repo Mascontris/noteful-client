@@ -6,8 +6,8 @@ export default function NotePageMain(props) {
   return (
     <section className='NotePageMain'>
       <Note
-        id={props.note.id}
-        name={props.note.name}
+        id={props.note.noteId}
+        name={props.note.noteName}
         modified={props.note.modified}
       />
       <div className='NotePageMain__content'>

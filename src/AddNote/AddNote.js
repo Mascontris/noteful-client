@@ -42,7 +42,7 @@ export default class AddNote extends Component {
 
         event.preventDefault();
 
-        const url = 'http://localhost:9090/notes';
+        const url = 'https://immense-caverns-47913.herokuapp.com/notes';
         const data = { name: this.state.noteName, modified: new Date(), content: this.state.noteContent, folderId: this.props.folderId}
         if (!data.content) {
             data.content = this.state.ipsum

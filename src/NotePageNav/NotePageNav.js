@@ -18,7 +18,7 @@ export default function NotePageNav(props) {
       </CircleButton>
       {props.folder && (
         <h3 className='NotePageNav__folder-name'>
-          {props.folder.name}
+          {props.folder.folderName}
         </h3>
       )}
     </div>
