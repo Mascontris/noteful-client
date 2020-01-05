@@ -27,7 +27,6 @@ class App extends Component {
         .then(response => this.setState({notes: response}))
         .catch(error => console.error('Error:', error))
    
-        setTimeout(() => console.log(this.state), 600)
     }
 
     addFolder = (folder) => {this.setState({folders: [...this.state.folders, folder]})}
@@ -37,7 +36,7 @@ class App extends Component {
         const {notes, folders} = this.state;
         return (
             <>
-                {['/', '/folder/:folderId'].map(path => (
+                {['/', '/folders/:folderId'].map(path => (
                     <Route
                         exact
                         key={path}
@@ -52,7 +51,7 @@ class App extends Component {
                     />
                 ))}
                 <Route
-                    path="/note/:noteId"
+                    path="/notes/:noteId"
                     render={routeProps => {
                         const {noteId} = routeProps.match.params;
                         const note = findNote(notes, noteId) || {};
@@ -72,7 +71,7 @@ class App extends Component {
         const {notes } = this.state;
         return (
             <>
-                {['/', '/folder/:folderId'].map(path => (
+                {['/', '/folders/:folderId'].map(path => (
                     <Route
                         exact
                         key={path}
@@ -93,7 +92,7 @@ class App extends Component {
                     />
                 ))}
                 <Route
-                    path="/note/:noteId"
+                    path="/notes/:noteId"
                     render={routeProps => {
                         const {noteId} = routeProps.match.params;
                         const note = findNote(notes, noteId);
@@ -104,7 +103,7 @@ class App extends Component {
                     render={routeProps => {
                     return <AddNote {...routeProps} addNote={this.addNote} folderId={routeProps.match.params.folderId} folders={this.state.folders}/>}} />
                 
-                <Route path="/folder/:folderId/add-note" 
+                <Route path="/folders/:folderId/add-note" 
                     render={routeProps => {
                     return <AddNote {...routeProps} addNote={this.addNote} folderId={routeProps.match.params.folderId} folders={this.state.folders}/>}} />    
             </>

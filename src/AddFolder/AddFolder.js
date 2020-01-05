@@ -26,12 +26,12 @@ export default class AddFolder extends Component {
     handleSubmit(event) {
         event.preventDefault();
         var url = 'https://immense-caverns-47913.herokuapp.com/folders';
-        var data = { folderName: this.state.value }
+        var data = { foldername: this.state.value }
 
         if(this.props.folderId ){
             data.folderId = this.props.folderId
         }
-        if (!data.folderName){
+        if (!data.foldername){
             this.setState({ errors: "field cannot be blank" })
         }
         else {

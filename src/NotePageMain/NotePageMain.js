@@ -3,6 +3,7 @@ import Note from '../Note/Note'
 import './NotePageMain.css'
 
 export default function NotePageMain(props) {
+  console.log(props.note.noteId)
   return (
     <section className='NotePageMain'>
       <Note
@@ -11,7 +12,7 @@ export default function NotePageMain(props) {
         modified={props.note.modified}
       />
       <div className='NotePageMain__content'>
-        {props.note.content.split(/\n \r|\n/).map((para, i) =>
+        {props.note.noteContent.split(/\n \r|\n/).map((para, i) =>
           <p key={i}>{para}</p>
         )}
       </div>

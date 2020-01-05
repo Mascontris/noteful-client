@@ -16,7 +16,7 @@ export default class AddNote extends Component {
             errors: "",
             noteName: ``,
             noteContent: "",
-            selectedFolder: this.props.folderId,
+            selectedFolder: "",
             ipsum: ipsum.generate({words: 50})
         };
 
@@ -43,14 +43,14 @@ export default class AddNote extends Component {
         event.preventDefault();
 
         const url = 'https://immense-caverns-47913.herokuapp.com/notes';
-        const data = { name: this.state.noteName, modified: new Date(), content: this.state.noteContent, folderId: this.props.folderId}
-        if (!data.content) {
-            data.content = this.state.ipsum
+        const data = { notename: this.state.noteName, notecontent: this.state.noteContent, folderid: this.state.selectedFolder}
+        if (!data.notecontent) {
+            data.notecontent = this.state.ipsum
         }
-        if(this.props.folderId){
-            data.folderId = this.props.folderId
+        if(!data.folderid){
+            data.folderid = 1
         }
-        if (!data.name){
+        if (!data.notename){
             this.setState({ errors: "Note name field cannot be blank" })
         }
         else {
@@ -73,7 +73,7 @@ export default class AddNote extends Component {
     
     render() {
         const folders = this.props.folders.map((folder, index) => { 
-            return  <option key={index} value={folder.id}>{folder.name}</option>
+            return  <option key={index} value={folder.folderId}>{folder.folderName}</option>
         })
 
         return (
