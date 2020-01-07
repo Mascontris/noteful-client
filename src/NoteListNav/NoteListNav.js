@@ -6,6 +6,10 @@ import { countNotesForFolder } from '../notes-helpers'
 import './NoteListNav.css'
 
 export default function NoteListNav(props) {
+   //if (props.loadData && props.location && props.location.state.loadData) {
+     //props.location.state.loadData = false
+     //props.loadData()
+     //}
   return (
     <div className='NoteListNav'>
       <ul className='NoteListNav__list'>
